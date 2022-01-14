@@ -13,6 +13,7 @@ dependencies:
     sdk: flutter
   flutter_bloc: 
   freezed:
+  freezed_annotation:
   get_it:
   http: 
   injectable:
