@@ -8,14 +8,22 @@ environment:
 
 dependencies:
   cupertino_icons: ^1.0.2
+  equatable: ^2.0.3
   flutter:
     sdk: flutter
+  flutter_bloc: 
+  freezed:
+  get_it:
+  http: 
+  injectable:
 
 
 dev_dependencies:
+  build_runner: ^2.1.4
   flutter_lints: ^1.0.4
   flutter_test:
     sdk: flutter
+  injectable_generator: ^1.5.2  
 
 flutter:
   uses-material-design: true
