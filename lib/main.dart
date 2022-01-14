@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:create_base/app.dart';
 import 'package:create_base/setup.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  configureDependencies();
+  await configureDependencies();
   runApp(locateService<App>());
 }

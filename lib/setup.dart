@@ -1,3 +1,4 @@
+import 'package:create_base/core/services/navigation/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
@@ -12,7 +13,7 @@ T locateService<T extends Object>() => getIt.get<T>();
   preferRelativeImports: false,
   asExtension: false,
 )
-void configureDependencies() => $initGetIt(getIt);
+Future<void> configureDependencies() async => $initGetIt(getIt);
 
 // Using a register module (for third party dependencies)
 // if you declare a module member as a method instead of a simple accessor, injectable
@@ -20,6 +21,15 @@ void configureDependencies() => $initGetIt(getIt);
 // The same way if you annotate an injected param with @factoryParam injectable will treat it as a factory param.
 @module
 abstract class RegisterModule {
+  static final _appRouter = AppRouter();
+  final _navigationService = NavigationService(_appRouter.navigatorKey);
+
   @Injectable(as: Key)
   UniqueKey get key;
+
+  @singleton
+  NavigationService get navigationService => _navigationService;
+
+  @singleton
+  AppRouter get appRouter => _appRouter;
 }
