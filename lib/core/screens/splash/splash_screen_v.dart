@@ -14,9 +14,15 @@ class SplashScreen extends BaseView<SplashScreenViewmodel> {
     return BlocBuilder<SplashScreenViewmodel, SplashScreenState>(
       bloc: viewModel,
       builder: (context, state) {
-        return const Scaffold(
-          body: Center(
-            child: Text('Splash'),
+        viewModel.navigateToLogin();
+        return SafeArea(
+          child: Scaffold(
+            body: Container(
+              color: Colors.amber,
+              child: const Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
           ),
         );
       },

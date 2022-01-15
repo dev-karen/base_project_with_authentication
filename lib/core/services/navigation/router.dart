@@ -1,12 +1,15 @@
-import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
+
 import 'package:create_base/core/screens/screens.dart';
+import 'package:create_base/features/features.dart';
 
 part 'router.gr.dart';
 
 abstract class Routes {
   static const root = '/';
-  static const splash = '/splash_screen';
+  static const splash = '/splash';
+  static const login = '/login';
 }
 
 @MaterialAutoRouter(
@@ -15,7 +18,12 @@ abstract class Routes {
     CustomRoute(
       page: SplashScreen,
       path: Routes.splash,
-      transitionsBuilder: TransitionsBuilders.fadeIn,
+      transitionsBuilder: TransitionsBuilders.slideTop,
+    ),
+    CustomRoute(
+      page: LoginScreen,
+      path: Routes.login,
+      transitionsBuilder: TransitionsBuilders.slideRight,
     ),
     RedirectRoute(path: '*', redirectTo: Routes.splash)
   ],

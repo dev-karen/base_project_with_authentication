@@ -28,7 +28,7 @@ abstract class RegisterModule {
   UniqueKey get key;
 
   @singleton
-  NavigationService get navigationService => _navigationService;
+  INavigationService get navigationService => _navigationService;
 
   @singleton
   AppRouter get appRouter => _appRouter;

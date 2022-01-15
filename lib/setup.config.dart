@@ -5,10 +5,12 @@
 // **************************************************************************
 
 import 'package:create_base/app.dart' as _i3;
-import 'package:create_base/core/screens/splash/splash_screen_vm.dart' as _i7;
+import 'package:create_base/core/screens/splash/splash_screen_vm.dart' as _i8;
 import 'package:create_base/core/services/navigation/navigation.dart' as _i6;
 import 'package:create_base/core/services/navigation/router.dart' as _i4;
-import 'package:create_base/setup.dart' as _i8;
+import 'package:create_base/features/authentication/login/login_screen_vm.dart'
+    as _i7;
+import 'package:create_base/setup.dart' as _i9;
 import 'package:flutter/material.dart' as _i5;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart'
@@ -23,13 +25,16 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.factory<_i3.App>(
       () => _i3.App(appRouter: get<_i4.AppRouter>(), key: get<_i5.Key>()));
   gh.singleton<_i6.AppRouter>(registerModule.appRouter);
+  gh.singleton<_i6.INavigationService<dynamic>>(
+      registerModule.navigationService);
   gh.factory<_i5.Key>(() => registerModule.key);
-  gh.singleton<_i6.NavigationService>(registerModule.navigationService);
-  gh.factory<_i7.SplashScreenViewmodel>(() => _i7.SplashScreenViewmodel());
+  gh.factory<_i7.LoginScreenViewmodel>(() => _i7.LoginScreenViewmodel());
+  gh.factory<_i8.SplashScreenViewmodel>(() => _i8.SplashScreenViewmodel(
+      navigationService: get<_i6.INavigationService<dynamic>>()));
   return get;
 }
 
-class _$RegisterModule extends _i8.RegisterModule {
+class _$RegisterModule extends _i9.RegisterModule {
   @override
   _i5.UniqueKey get key => _i5.UniqueKey();
 }

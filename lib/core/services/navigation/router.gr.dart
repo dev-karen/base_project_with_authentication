@@ -26,14 +26,25 @@ class _$AppRouter extends RootStackRouter {
           transitionsBuilder: TransitionsBuilders.fadeIn,
           opaque: true,
           barrierDismissible: false);
+    },
+    LoginRoute.name: (routeData) {
+      final args = routeData.argsAs<LoginRouteArgs>(
+          orElse: () => const LoginRouteArgs());
+      return CustomPage<dynamic>(
+          routeData: routeData,
+          child: LoginScreen(key: args.key),
+          transitionsBuilder: TransitionsBuilders.fadeIn,
+          opaque: true,
+          barrierDismissible: false);
     }
   };
 
   @override
   List<RouteConfig> get routes => [
-        RouteConfig(SplashRoute.name, path: '/splash_screen'),
+        RouteConfig(SplashRoute.name, path: '/splash'),
+        RouteConfig(LoginRoute.name, path: '/login'),
         RouteConfig('*#redirect',
-            path: '*', redirectTo: '/splash_screen', fullMatch: true)
+            path: '*', redirectTo: '/splash', fullMatch: true)
       ];
 }
 
@@ -42,7 +53,7 @@ class _$AppRouter extends RootStackRouter {
 class SplashRoute extends PageRouteInfo<SplashRouteArgs> {
   SplashRoute({Key? key})
       : super(SplashRoute.name,
-            path: '/splash_screen', args: SplashRouteArgs(key: key));
+            path: '/splash', args: SplashRouteArgs(key: key));
 
   static const String name = 'SplashRoute';
 }
@@ -55,5 +66,25 @@ class SplashRouteArgs {
   @override
   String toString() {
     return 'SplashRouteArgs{key: $key}';
+  }
+}
+
+/// generated route for
+/// [LoginScreen]
+class LoginRoute extends PageRouteInfo<LoginRouteArgs> {
+  LoginRoute({Key? key})
+      : super(LoginRoute.name, path: '/login', args: LoginRouteArgs(key: key));
+
+  static const String name = 'LoginRoute';
+}
+
+class LoginRouteArgs {
+  const LoginRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'LoginRouteArgs{key: $key}';
   }
 }

@@ -15,7 +15,7 @@
         "**/*.gr.dart": false,
         "**/*.g.dart": false,
         "**/*.mocks.dart": true,
-        "**/*.freezed.dart": true,
+        "**/*.freezed.dart": false,
         "**/.flutter-plugins*": true,
         "debug.log": true,
     }
