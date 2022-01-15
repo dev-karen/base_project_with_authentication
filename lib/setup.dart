@@ -1,7 +1,9 @@
-import 'package:create_base/core/services/navigation/navigation.dart';
+import 'package:create_base/core/services/services.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:http/http.dart';
 import 'package:injectable/injectable.dart';
+
 import 'package:create_base/setup.config.dart';
 
 GetIt getIt = GetIt.instance;
@@ -23,12 +25,16 @@ Future<void> configureDependencies() async => $initGetIt(getIt);
 abstract class RegisterModule {
   static final _appRouter = AppRouter();
   final _navigationService = NavigationService(_appRouter.navigatorKey);
+  final _client = Client();
 
   @Injectable(as: Key)
   UniqueKey get key;
 
   @singleton
   INavigationService get navigationService => _navigationService;
+
+  @singleton
+  INetworkService get network => NetworkCall(client: _client);
 
   @singleton
   AppRouter get appRouter => _appRouter;

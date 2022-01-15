@@ -23,7 +23,7 @@ class _$AppRouter extends RootStackRouter {
       return CustomPage<dynamic>(
           routeData: routeData,
           child: SplashScreen(key: args.key),
-          transitionsBuilder: TransitionsBuilders.fadeIn,
+          transitionsBuilder: TransitionsBuilders.slideTop,
           opaque: true,
           barrierDismissible: false);
     },
@@ -33,7 +33,7 @@ class _$AppRouter extends RootStackRouter {
       return CustomPage<dynamic>(
           routeData: routeData,
           child: LoginScreen(key: args.key),
-          transitionsBuilder: TransitionsBuilders.fadeIn,
+          transitionsBuilder: TransitionsBuilders.slideRight,
           opaque: true,
           barrierDismissible: false);
     }
