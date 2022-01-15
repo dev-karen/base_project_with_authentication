@@ -17,8 +17,15 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$LoginScreenStateTearOff {
   const _$LoginScreenStateTearOff();
 
-  Initialize initialize() {
-    return const Initialize();
+  Initialize initialize(
+      {required String username,
+      required String password,
+      required bool isBusy}) {
+    return Initialize(
+      username: username,
+      password: password,
+      isBusy: isBusy,
+    );
   }
 }
 
@@ -27,19 +34,24 @@ const $LoginScreenState = _$LoginScreenStateTearOff();
 
 /// @nodoc
 mixin _$LoginScreenState {
+  String get username => throw _privateConstructorUsedError;
+  String get password => throw _privateConstructorUsedError;
+  bool get isBusy => throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initialize,
+    required TResult Function(String username, String password, bool isBusy)
+        initialize,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? initialize,
+    TResult Function(String username, String password, bool isBusy)? initialize,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initialize,
+    TResult Function(String username, String password, bool isBusy)? initialize,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -59,6 +71,10 @@ mixin _$LoginScreenState {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $LoginScreenStateCopyWith<LoginScreenState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -66,6 +82,7 @@ abstract class $LoginScreenStateCopyWith<$Res> {
   factory $LoginScreenStateCopyWith(
           LoginScreenState value, $Res Function(LoginScreenState) then) =
       _$LoginScreenStateCopyWithImpl<$Res>;
+  $Res call({String username, String password, bool isBusy});
 }
 
 /// @nodoc
@@ -76,13 +93,38 @@ class _$LoginScreenStateCopyWithImpl<$Res>
   final LoginScreenState _value;
   // ignore: unused_field
   final $Res Function(LoginScreenState) _then;
+
+  @override
+  $Res call({
+    Object? username = freezed,
+    Object? password = freezed,
+    Object? isBusy = freezed,
+  }) {
+    return _then(_value.copyWith(
+      username: username == freezed
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String,
+      password: password == freezed
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
+      isBusy: isBusy == freezed
+          ? _value.isBusy
+          : isBusy // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
 /// @nodoc
-abstract class $InitializeCopyWith<$Res> {
+abstract class $InitializeCopyWith<$Res>
+    implements $LoginScreenStateCopyWith<$Res> {
   factory $InitializeCopyWith(
           Initialize value, $Res Function(Initialize) then) =
       _$InitializeCopyWithImpl<$Res>;
+  @override
+  $Res call({String username, String password, bool isBusy});
 }
 
 /// @nodoc
@@ -94,51 +136,93 @@ class _$InitializeCopyWithImpl<$Res>
 
   @override
   Initialize get _value => super._value as Initialize;
+
+  @override
+  $Res call({
+    Object? username = freezed,
+    Object? password = freezed,
+    Object? isBusy = freezed,
+  }) {
+    return _then(Initialize(
+      username: username == freezed
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String,
+      password: password == freezed
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
+      isBusy: isBusy == freezed
+          ? _value.isBusy
+          : isBusy // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$Initialize implements Initialize {
-  const _$Initialize();
+  const _$Initialize(
+      {required this.username, required this.password, required this.isBusy});
+
+  @override
+  final String username;
+  @override
+  final String password;
+  @override
+  final bool isBusy;
 
   @override
   String toString() {
-    return 'LoginScreenState.initialize()';
+    return 'LoginScreenState.initialize(username: $username, password: $password, isBusy: $isBusy)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is Initialize);
+        (other.runtimeType == runtimeType &&
+            other is Initialize &&
+            (identical(other.username, username) ||
+                other.username == username) &&
+            (identical(other.password, password) ||
+                other.password == password) &&
+            (identical(other.isBusy, isBusy) || other.isBusy == isBusy));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, username, password, isBusy);
+
+  @JsonKey(ignore: true)
+  @override
+  $InitializeCopyWith<Initialize> get copyWith =>
+      _$InitializeCopyWithImpl<Initialize>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initialize,
+    required TResult Function(String username, String password, bool isBusy)
+        initialize,
   }) {
-    return initialize();
+    return initialize(username, password, isBusy);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? initialize,
+    TResult Function(String username, String password, bool isBusy)? initialize,
   }) {
-    return initialize?.call();
+    return initialize?.call(username, password, isBusy);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initialize,
+    TResult Function(String username, String password, bool isBusy)? initialize,
     required TResult orElse(),
   }) {
     if (initialize != null) {
-      return initialize();
+      return initialize(username, password, isBusy);
     }
     return orElse();
   }
@@ -173,5 +257,19 @@ class _$Initialize implements Initialize {
 }
 
 abstract class Initialize implements LoginScreenState {
-  const factory Initialize() = _$Initialize;
+  const factory Initialize(
+      {required String username,
+      required String password,
+      required bool isBusy}) = _$Initialize;
+
+  @override
+  String get username;
+  @override
+  String get password;
+  @override
+  bool get isBusy;
+  @override
+  @JsonKey(ignore: true)
+  $InitializeCopyWith<Initialize> get copyWith =>
+      throw _privateConstructorUsedError;
 }

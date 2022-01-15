@@ -12,10 +12,10 @@
         "create_base.iml": true,
         "README.md": true,
         "**/*.config.dart": false,
-        "**/*.gr.dart": false,
-        "**/*.g.dart": false,
+        "**/*.gr.dart": true,
+        "**/*.g.dart": true,
         "**/*.mocks.dart": true,
-        "**/*.freezed.dart": false,
+        "**/*.freezed.dart": true,
         "**/.flutter-plugins*": true,
         "debug.log": true,
     }

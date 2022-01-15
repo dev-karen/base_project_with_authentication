@@ -30,7 +30,9 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       registerModule.navigationService);
   gh.singleton<_i6.INetworkService<dynamic>>(registerModule.network);
   gh.factory<_i5.Key>(() => registerModule.key);
-  gh.factory<_i7.LoginScreenViewmodel>(() => _i7.LoginScreenViewmodel());
+  gh.factory<_i7.LoginScreenViewmodel>(() => _i7.LoginScreenViewmodel(
+      navigationService: get<_i6.INavigationService<dynamic>>(),
+      networkService: get<_i6.INetworkService<dynamic>>()));
   gh.factory<_i8.SplashScreenViewmodel>(() => _i8.SplashScreenViewmodel(
       navigationService: get<_i9.INavigationService<dynamic>>()));
   return get;

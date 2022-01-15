@@ -1,23 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:create_base/core/ui_kit/ui_kit.dart';
 import 'package:create_base/core/base/base_view.dart';
 import 'package:create_base/features/authentication/login/login_screen_m.dart';
 import 'package:create_base/features/authentication/login/login_screen_vm.dart';
 
 class LoginScreen extends BaseView<LoginScreenViewmodel> {
-  LoginScreen({
-    Key? key,
-  }) : super(key: key);
+  LoginScreen({Key? key}) : super(key: key);
 
   static const _spacer = SizedBox(height: 20);
   static const _avatarSize = 100.0;
+  static const _invalidMessage = 'please fill this field';
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoginScreenViewmodel, LoginScreenState>(
         bloc: viewModel,
         builder: (context, state) {
+          final _usernameController = TextController(text: state.username);
+          final _passwordController = TextController(text: state.password);
           return SafeArea(
             child: Scaffold(
               body: Padding(
@@ -27,7 +31,12 @@ class LoginScreen extends BaseView<LoginScreenViewmodel> {
                   children: [
                     _buildHeader(),
                     _spacer,
-                    _buildForm(),
+                    _buildForm(
+                      usernameController: _usernameController,
+                      passwordController: _passwordController,
+                      state: state,
+                      context: context,
+                    ),
                   ],
                 ),
               ),
@@ -53,22 +62,80 @@ class LoginScreen extends BaseView<LoginScreenViewmodel> {
     );
   }
 
-  Widget _buildForm() {
+  Widget _buildForm({
+    required TextController usernameController,
+    required TextController passwordController,
+    required LoginScreenState state,
+    required BuildContext context,
+  }) {
     return Form(
+      key: _formKey,
       child: Column(
         children: [
-          TextFormField(
-            decoration: const InputDecoration(hintText: 'email'),
+          TextInput(
+            controller: usernameController,
+            inputDecoration: const InputDecoration(hintText: 'email'),
+            validator: (value) =>
+                _validateField(input: usernameController.text),
+            onChanged: (value) => viewModel.updateForm(username: value),
           ),
           _spacer,
-          TextFormField(
-            obscureText: true,
-            decoration: const InputDecoration(hintText: 'password'),
+          TextInput(
+            controller: passwordController,
+            inputDecoration: const InputDecoration(hintText: 'password'),
+            obsecureText: true,
+            onChanged: (value) => viewModel.updateForm(password: value),
+            validator: (value) =>
+                _validateField(input: passwordController.text),
           ),
           _spacer,
-          ElevatedButton(onPressed: () {}, child: const Text('login'))
+          _buildLoginButton(
+            usernameController: usernameController,
+            passwordController: passwordController,
+            state: state,
+            context: context,
+          ),
         ],
       ),
     );
+  }
+
+  Widget _buildLoginButton({
+    required TextController usernameController,
+    required TextController passwordController,
+    required LoginScreenState state,
+    required BuildContext context,
+  }) {
+    return state.isBusy
+        ? const CircularProgressIndicator()
+        : ElevatedButton(
+            onPressed: () async {
+              if (_formKey.currentState!.validate()) {
+                final isLoginSuccessful = await viewModel.login(
+                  username: usernameController.text,
+                  password: passwordController.text,
+                );
+                if (isLoginSuccessful) {
+                  _showSnackBar(
+                      context: context, message: 'successfully logged in');
+                } else {
+                  _showSnackBar(
+                    context: context,
+                    message: 'failed to login',
+                  );
+                }
+              }
+            },
+            child: const Text('login'),
+          );
+  }
+
+  String? _validateField({required String input}) {
+    return viewModel.isValid(input: input) ? null : _invalidMessage;
+  }
+
+  void _showSnackBar({required BuildContext context, required String message}) {
+    final snackBar = SnackBar(content: Text(message));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
